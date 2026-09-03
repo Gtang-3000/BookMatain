@@ -1,0 +1,34 @@
+﻿@model Employee;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@* @using (Html.BeginForm("SearchEmployee", "Employee", FormMethod.Post)) *@
+@using (Html.BeginForm("Index", "Employee", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>員工編號</td>
+            <td>
+                <input type="text" name="EmployeeNo" />
+            </td>
+        </tr>
+        <tr>
+            <td>員工姓名</td>
+            <td>
+                <input type="text" name="EmployeeName" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="查詢" /></td>
+        </tr>
+    </table>
+
+    
+}
+
+@* @await Component.InvokeAsync("Position") *@
+@*@await  Component.InvokeAsync("Position")*@
+
