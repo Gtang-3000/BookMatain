@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<input type="button" id="btnAjaxGet" value="AjaxGet" />
+<input type="button" id="btnAjaxGetMutliCond" value="AjaxGetMutliCond" />
+<input type="button" id="btnAjaxGetObject" value="AjaxGetObject" />
+
+<input type="button" id="btnAjaxPost" value="AjaxPost" />
+<input type="button" id="btnAjaxPostSingle" value="AjaxPostSingle" />
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#btnAjaxGet").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    method: "GET",
+                    url: "/Home/AjaxGet?employeeId=1331",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+            $("#btnAjaxGetMutliCond").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    method: "GET",
+                    url: "/Home/AjaxGetWithMutliCondition?employeeId=1331&Name=kenny",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+            $("#btnAjaxGetObject").click(function (e) {
+                e.preventDefault();
+
+                var data = {
+                    "EmployeeId": "1331",
+                    "Name": "Kenny"
+                };
+
+                $.ajax({
+                    method: "GET",
+                    url: "/Home/AjaxGetWithObject",
+                    data: data,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+
+            $("#btnAjaxPost").click(function (e) {
+                e.preventDefault();
+
+                var data = {
+                    "EmployeeId": "1331",
+                    "Name": "Kenny"
+                };
+
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/AjaxPost",
+                    data: data,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+
+            $("#btnAjaxPostSingle").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/AjaxPostSingle",
+                    data: {"employeeId":"1331"},//"employeeId=1331",
+                    dataType: "json",
+                    success: function (response) {
+
+                    }
+                });
+            });
+
+
+        });
+    </script>
+}
