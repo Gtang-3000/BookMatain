@@ -1,0 +1,73 @@
+﻿@* 程式區塊碼 *@
+@{
+    string FirstWord = "Hello";
+    string LastWord = "World";
+    string Message = FirstWord + " " + LastWord;
+
+    List<string> Items = new List<string>();
+    Items.Add("111");
+    Items.Add("222");
+    Items.Add("333");
+
+    int Limit = 1000;
+    
+}
+
+@* 陳述式 *@
+<span>@Message</span>
+<script>
+    alert("@Message");
+</script>
+
+@* 結合程式與標記語言 *@
+
+@foreach (var item in Items)
+{
+    if (item != "111")
+    {
+        <span>@item</span>  @* 標記語言內要使用 C# 變數 要加@ *@
+    }
+}
+<br />
+
+@* 混合程式與文字 *@
+@if (Limit == 1000)
+{
+    <span style="color:red">本次上限為</span> @Limit
+    <br>
+    @:Plan text @Limit  @* 程式區塊內要直接顯示文字 要加 @: *@
+}
+
+@* @using 區塊 *@
+@using (Html.BeginForm())
+{
+    <span></span>
+}
+
+@* Html.Raw *@
+@{
+    string text = @"{'name':'kenny'}";
+}
+<script>
+    var oo=@Html.Raw(@text);
+    var xx = '@text';
+    debugger
+</script>
+
+@* 超連結 *@
+@Html.ActionLink("點我點我", "Index2")
+<br />
+@* 超連結 指定 Action 與 Controller *@
+@Html.ActionLink("點我點我", "Index2", "ViewDemo")
+<br />
+@* 超連結 指定 Action 與 Controller 並指定 id 作為參數*@
+@Html.ActionLink("點我點我", "Index2", "ViewDemo",new {id="123"})
+<br />
+@* 超連結 指定 Action 與 Controller 並指定 非id 作為參數*@
+@Html.ActionLink("點我點我", "Index2", "ViewDemo", new { param = "123" })
+<br />
+@* 超連結 指定 Action 與 Controller 並設定樣式*@
+@Html.ActionLink("點我點我", "Index2", "ViewDemo", null, new { @class = "btn btn-primary" })
+<br />
+@* 使用 Url.Action 產生超連結*@
+<a href="@Url.Action("Index2","ViewDemo")">點我點我</a>

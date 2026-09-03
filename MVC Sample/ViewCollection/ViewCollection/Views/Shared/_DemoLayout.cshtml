@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <a href="~/lib/bootstrap/dist/css/bootstrap.min.css.map"></a>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    我是標題
+                </td>
+            </tr>
+            <tr>
+                <td width="10%">
+                    <div>功能 1</div>
+                    <div>功能 2</div>
+                    <div>功能 3</div>
+                </td>
+                <td>
+                    @RenderBody()
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    我是聯絡資訊
+                </td>
+            </tr>
+        </table>
+        
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.esm.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>
+
+        @await RenderSectionAsync("Scripts", required: false)
+    </div>
+</body>
+</html>

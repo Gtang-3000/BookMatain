@@ -1,0 +1,91 @@
+﻿
+@model ViewCollection.Models.Employee;
+
+
+@Model.EmployeeId
+
+@* TextBox 使用方法 1 *@
+<div>
+    <span>TextBox-1</span>
+    <br />
+    @Html.TextBox("EmployeeId")
+    @Html.TextBox("FirstName")
+    @Html.TextBox("LaseName")
+    <br />
+</div>
+
+@* TextBox 使用方法 2 *@
+<div>
+    <span>TextBox-2</span>
+    <br />
+    @Html.TextBox("demo_EmployeeId", Model.EmployeeId)
+    @Html.TextBox("demo_FirstName", Model.FirstName)
+    @Html.TextBox("demo_LaseName", Model.LaseName)
+    <br />
+</div>
+
+@* DropDownList 使用方法 *@
+<div>
+    <span>DropDownList</span>
+    <br />
+    @Html.DropDownList("TitleCode",
+            (List<SelectListItem>)ViewBag.TitleList,
+            "請選擇")
+    <br />
+</div>
+
+@* TextBoxFor 使用方法 *@
+<div>
+    <span>TextBoxFor</span>
+    <br />
+    @Html.TextBoxFor(Model => Model.EmployeeId)
+    @Html.TextBoxFor(Model => Model.FirstName)
+    @Html.TextBoxFor(Model => Model.LaseName)
+    <br />
+</div>
+
+@* DropDownListFor 使用方法 *@
+<div>
+    <span>DropDownListFor</span>
+    <br />
+    @Html.DropDownListFor(Model => Model.TitleCode,
+            (List<SelectListItem>)ViewBag.TitleList)
+    <br />
+</div>
+
+@* TextBoxFor 使用方法 & Html 擴充屬性*@
+<div>
+    <span>TextBoxFor</span>
+    <br />
+    @Html.TextBoxFor(Model => Model.EmployeeId,
+            new { @class = "form-control", @style = "color:red" })
+    @Html.TextBoxFor(Model => Model.FirstName,
+            new { @class = "form-control", @style = "background-color:blue" })
+    @Html.TextBoxFor(Model => Model.LaseName,
+            new { @class = "form-control customizationcss" })
+    <br />
+</div>
+
+@* DropDownListFor  Option Label*@
+<div>
+    <span>DropDownListFor</span>
+    <br />
+    @Html.DropDownListFor(Model => Model.TitleCode,
+            (List<SelectListItem>)ViewBag.TitleList, "請選擇")
+    <br />
+</div>
+
+@* DropDownListFor 使用方法 & Html 擴充屬性*@
+<div>
+    <span>DropDownListFor</span>
+    <br />
+    @Html.DropDownListFor(Model => Model.TitleCode,
+            (List<SelectListItem>)ViewBag.TitleList, null, new { @class = "form-select" })
+    <br />
+    @Html.DropDownListFor(Model => Model.TitleCode,
+            (List<SelectListItem>)ViewBag.TitleList, "請選擇", new { @class = "form-select" })
+    <br />
+</div>
+
+
+
