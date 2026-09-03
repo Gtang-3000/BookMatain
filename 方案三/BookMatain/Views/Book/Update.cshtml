@@ -1,0 +1,131 @@
+﻿@model BookMatain.Models.BookDataForEdit
+
+
+<h1>Updtae</h1>
+@Html.ActionLink("首頁", "index", "Book", null, new { @class = "btn btn-primary" })
+
+<div class="row">
+
+    @using (@Html.BeginForm("Update", "Book", FormMethod.Post))
+    {
+        @Html.HiddenFor(Model => Model.BookID)
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th><label>書名 <span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>作者 <span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookAuthor, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookAuthor, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>出版商 <span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookPublishier, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookPublishier, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>內容簡介<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextAreaFor(Model => Model.BookNote, new { @class = "form-control" , row = "2"})
+                        @Html.ValidationMessageFor(model => model.BookNote, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>購書日期<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookBoughtDate, new { @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(model => model.BookBoughtDate, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>圖書類別<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.DropDownListFor(Model => Model.BookClassID, (List<SelectListItem>)ViewBag.BookClassCode, "請選擇", new { @Class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.BookClassID, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>借閱狀態<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.DropDownListFor(Model => Model.Status, (List<SelectListItem>)ViewBag.BookStatus, "請選擇", new { @Class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>借閱人</label></th>
+                    <th>@Html.DropDownListFor(Model => Model.Keeper, (List<SelectListItem>)ViewBag.BookKeeper, "請選擇", new { @Class = "form-select" })</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td style="text-align: right;">
+                        <input type="submit" value="儲存" class="btn btn-primary btnSave" />
+                        <button type="button" class="btn btn-primary btnDelete">刪除</button>
+                    </td>
+                </tr>
+            </thead> 
+        </table>
+
+
+
+        
+    }
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".btnSave").click(function (e) {
+                if ($("#Status").val() === 'A') {
+                    $("#Keeper").val("");
+                    alert("可以借出時 清空KEEPER");
+                    return;
+                };
+                if (!confirm("確定儲存嗎")) {
+                    e.preventDefault();
+                    return;
+                };
+            });
+        });
+
+
+        $(".btnDelete").click(function (e) {
+            if (!confirm("確定刪除嗎")) {
+                return;
+            };
+            
+            if ($("#Keeper").val() != "") {
+                alert("書被借走了 無法刪除");
+                return;
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Book/Delete",
+                data: {
+                    BookID: $("#BookID").val(),
+                },
+                success: function (response) {
+                    if (!response.success) {
+                        alert(response.message);
+                    }
+                    else {
+                        alert("刪除完成 退回搜尋頁面");
+                        window.location.href = "/Book/Index";
+                    }
+                },
+            });
+        });
+
+    </script>
+}
+

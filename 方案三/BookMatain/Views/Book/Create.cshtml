@@ -1,0 +1,77 @@
+﻿@model BookMatain.Models.CreateBookData
+<h1>Create</h1>
+@Html.ActionLink("首頁", "index", "Book", null, new { @class = "btn btn-primary" })
+
+
+<div class="row">
+    @using (@Html.BeginForm("Create", "Book", FormMethod.Post))
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th><label>書名 <span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>作者 <span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookAuthor, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookAuthor, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>出版商 <span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookPublishier, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BookPublishier, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>內容簡介<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextAreaFor(Model => Model.BookNote, new { @class = "form-control" , row = "2" })
+                        @Html.ValidationMessageFor(model => model.BookNote, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>購書日期<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.TextBoxFor(Model => Model.BookBoughtDate, new { @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(model => model.BookBoughtDate, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                <tr>
+                    <th><label>圖書類別<span class="text-danger">*</span></label></th>
+                    <th>
+                        @Html.DropDownListFor(Model => Model.BookClassID, (List<SelectListItem>)ViewBag.BookClassCode, "請選擇", new { @Class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.BookClassID, "", new { @class = "text-danger" })
+                    </th>
+                </tr>
+                    
+
+            </thead>
+        </table>
+        <div class="form-group">
+            <input type="submit" value="儲存" class="btn btn-primary btnSave" />
+        </div>
+    }
+
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".btnSave").click(function (e) {
+                if (!confirm("確定儲存嗎")) {
+                    e.preventDefault();
+                    return;
+                };
+            });
+        });
+    </script>
+}
+

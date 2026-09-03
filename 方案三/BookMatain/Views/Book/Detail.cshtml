@@ -1,0 +1,56 @@
+﻿@model BookMatain.Models.BookDataForEdit
+
+<h1>Detail</h1>
+@Html.ActionLink("首頁", "index", "Book", null, new { @class = "btn btn-primary" })
+
+
+<div class="row">
+
+    @using (@Html.BeginForm("Index", "Book", FormMethod.Post))
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th><label>書名 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextBoxFor(Model => Model.BookName, new { @class = "form-control", @readonly = "readonly" })</th>
+                </tr>
+                <tr>
+                    <th><label>作者 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextBoxFor(Model => Model.BookAuthor, new { @class = "form-control", @readonly = "readonly" })</th>
+                </tr>
+                <tr>
+                    <th><label>出版商 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextBoxFor(Model => Model.BookPublishier, new { @class = "form-control", @readonly = "readonly" })</th>
+                </tr>
+                <tr>
+                    <th><label>內容簡介 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextAreaFor(Model => Model.BookNote, new { @class = "form-control", @readonly = "readonly" , row = "2" })</th>
+                </tr>
+                <tr>
+                    <th><label>購書日期 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextBoxFor(Model => Model.BookBoughtDate, new { @class = "form-control", type = "date", @readonly = "readonly" })</th>
+                </tr>
+                <tr>
+                    <th><label>圖書類別 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextBoxFor(Model => Model.BookClassID, new { @class = "form-control", @readonly = "readonly" })</th>
+                </tr>
+                <tr>
+                    <th><label>借閱狀態 <span class="text-danger">*</span></label></th>
+                    <th>@Html.TextBoxFor(Model => Model.Status, new { @class = "form-control", @readonly = "readonly" })</th>
+                </tr>
+                <tr>
+                    <th><label>借閱人</label></th>
+                    @if (Model.Keeper == "")
+                    {
+                        <th><input type="text" value="NULL" class="form-control" readonly /></th>
+                    }
+                    else
+                    {
+                        <th>@Html.TextBoxFor(Model => Model.Keeper, new { @class = "form-control", @readonly = "readonly" })</th>
+
+                    }
+                </tr>
+            </thead>
+        </table>
+    }
+</div>

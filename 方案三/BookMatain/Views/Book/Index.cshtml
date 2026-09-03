@@ -1,0 +1,126 @@
+﻿@using BookMatain.Models
+@model BookSerchArg
+
+<h1>Index</h1>
+
+
+<div class="row">
+    @using (@Html.BeginForm("Index", "Book", FormMethod.Post))
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>書名</th>
+                    <th>@Html.TextBoxFor(Model => Model.BookName, new { @class = "form-control" })</th>
+                </tr>
+                <tr>
+                    <th>類別</th>
+                    <th>@Html.DropDownListFor(Model => Model.BookClassId, (List<SelectListItem>)ViewBag.BookClassCode, "請選擇", new { @Class = "form-select" })</th>
+                </tr>
+                <tr>
+                    <th>借閱人</th>
+                    <th>@Html.DropDownListFor(Model => Model.BookKeeper, (List<SelectListItem>)ViewBag.BookKeeper, "請選擇", new { @Class = "form-select" })</th>
+                </tr>
+                <tr>
+                    <th>狀態</th>
+                    <th>@Html.DropDownListFor(Model => Model.BookStatus, (List<SelectListItem>)ViewBag.BookStatus, "請選擇", new { @Class = "form-select" })</th>
+                </tr>
+                <tr>
+                    <th>購買日期起迄</th>
+                    <th>
+                        <div class="d-flex align-items-center gap-2">
+                            @Html.TextBoxFor(Model => Model.BookStartTime,new { type = "date", @class = "form-control" })
+                            <span>~</span>
+                            @Html.TextBoxFor(Model => Model.BookEndTime, new { type = "date", @class = "form-control" })
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+        </table>
+
+
+
+
+        <div class="from-group mb-3">
+            <input type="submit" value="查詢" class="btn btn-primary" />
+            @Html.ActionLink("新增", "Create", "Book", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("清除", "Index", "Book", null, new { @class = "btn btn-primary" })
+        </div>
+
+
+        @if (ViewBag.SearchResult != null)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>圖書類別</th>
+                        <th width="40%">書名</th>
+                        <th>購書日期</th>
+                        <th>借閱狀態</th>
+                        <th>借閱人</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (List<BookData>)ViewBag.SearchResult)
+                    {
+                        <tr>
+                            <td>@item.BookClassName</td>
+                            <td>
+                                @Html.ActionLink(@item.BookName, "Detail", "Book", new { BookID = item.BookID })
+                            </td>
+                            <td>@item.BookBoughtDate</td>
+                            <td>@item.BookStatus</td>
+                            <td>@item.BookKeeper</td>
+                            <td>
+                                <input type="button" value="借閱紀錄" class="btn btn-primary" />
+                                @Html.ActionLink("編輯", "Update", "Book", new { BookID = item.BookID }, new { @class = "btn btn-primary" })
+                                <button type="button" class="btn btn-primary btnDelete" data-book-id="@item.BookID" data-book-keeper="@item.BookKeeper">
+                                    刪除
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>
+
+
+
+@section Scripts{
+    <script>
+
+        $(".btnDelete").click(function (e) {
+            if (!confirm("確定刪除嗎")) {
+                return;
+            } 
+            var btn = $(this);
+            var tr = btn.closest("tr");
+            var BookID = btn.data("book-id");
+            if (btn.data("book-keeper") != "") {
+                alert("書被借走了 無法刪除");
+                return;
+            };
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Book/Delete",
+                data: {
+                    BookID: BookID,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        tr.remove();
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                },
+            });
+        });
+
+    </script>
+}
