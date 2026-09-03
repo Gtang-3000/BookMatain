@@ -1,0 +1,134 @@
+﻿@model eHR.Models.Employee
+
+@{
+    ViewData["Title"] = "InsertEmployee";
+}
+
+<h1>InsertEmployee</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @using (@Html.BeginForm("InsertEmployee", "Employee", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.EmployeeFirstName, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.EmployeeFirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.EmployeeFirstName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.EmployeeLastName, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.EmployeeLastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.EmployeeLastName, "", new { @class = "text-danger" })
+            </div>
+
+@*             <div class="form-group">
+                @Html.LabelFor(Model => Model.JobTitle, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.JobTitle, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.JobTitle, "", new { @class = "text-danger" })
+            </div>
+ *@
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.JobTitleId, new { @class = "control-label" })
+                @Html.DropDownListFor(Model => Model.JobTitleId, (List<SelectListItem>)ViewBag.JobTitleCodeData, "請選擇", new { @class = "form-select" })
+                @Html.ValidationMessageFor(Model => Model.JobTitleId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.TitleOfCourtesy, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.TitleOfCourtesy, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.TitleOfCourtesy, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.HireDate, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.HireDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.HireDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.BirthDate, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.BirthDate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.Age, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.Age, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Age, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.Country, new { @class = "control-label" })
+                @Html.DropDownListFor(Model => Model.CountryId, (List<SelectListItem>)ViewBag.CountryCodeData, "請選擇", new { @class = "form-select" })
+                @Html.ValidationMessageFor(Model => Model.Country, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.CityId, new { @class = "control-label" })
+                @Html.DropDownListFor(Model => Model.CityId, (List<SelectListItem>)ViewBag.CityCodeData, "請選擇", new { @class = "form-select" })
+                @Html.ValidationMessageFor(Model => Model.CityId, "", new { @class = "text-danger" })
+            </div>
+
+@*             <div class="form-group">
+                @Html.LabelFor(Model => Model.Gender, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.Gender, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Gender, "", new { @class = "text-danger" })
+            </div> *@
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.GenderId, new { @class = "control-label" })
+                @Html.DropDownListFor(Model => Model.GenderId, (List<SelectListItem>)ViewBag.GenderCodeData, "請選擇", new { @class = "form-select" })
+                @Html.ValidationMessageFor(Model => Model.GenderId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.Phone, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.Phone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.Address, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Address, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.ManagerId, new { @class = "control-label" })
+                @Html.DropDownListFor(Model => Model.ManagerId, (List<SelectListItem>)ViewBag.EmployeeCodeData, "請選擇", new { @class = "form-select" })
+                @Html.ValidationMessageFor(Model => Model.ManagerId, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.MonthlyPayment, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.MonthlyPayment, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.MonthlyPayment, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(Model => Model.YearlyPayment, new { @class = "control-label" })
+                @Html.TextBoxFor(Model => Model.YearlyPayment, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.YearlyPayment, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        }
+
+      
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @* @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+}
